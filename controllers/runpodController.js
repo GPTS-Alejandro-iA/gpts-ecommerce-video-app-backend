@@ -19,8 +19,7 @@ export async function generarImagen(prompt) {
     })
   });
 
-  const data = await response.json();
-  return data;
+  return await response.json();
 }
 
 // 2. Generar video desde imagen
@@ -40,7 +39,5 @@ export async function generarVideoDesdeImagen(imageUrl, prompt) {
     })
   });
 
-  const data = await response.json();
-  return data;
+  return await response.json();
 }
-
