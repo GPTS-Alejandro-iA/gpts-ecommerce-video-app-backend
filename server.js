@@ -44,5 +44,13 @@ app.get("/", (req, res) => {
 // ⭐ RUTAS API
 app.use("/api/generate", generateRoute);
 app.use("/api/runpod", runpodRoutes);
-app.use("/api
+app.use("/api/stats", statsRoute);
+
+// ⭐ PUERTO
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+  console.log(`Backend running on port ${PORT}`);
+});
+
 
