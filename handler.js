@@ -1,29 +1,32 @@
-import runpod from 'runpod-sdk';
+"use strict";
 
-export const handler = async (job) => {
-  console.log('Job recibido en RunPod Serverless:', job.input);
+const runpod = require("runpod-sdk");
 
-  const input = job.input || {};
+/**
+ * Runpod Serverless handler.
+ * job format:
+ * {
+ *   "id": "...",
+ *   "input": { "prompt": "texto" },
+ *   ...
+ * }
+ */
+function handler(job) {
+  const input = job && job.input ? job.input : {};
+  const prompt = input.prompt;
 
-  if (!input.prompt || !input.duration || !input.resolution) {
-    throw new Error('Faltan prompt, duration o resolution');
+  if (typeof prompt !== "string") {
+    return {
+      status: "error",
+      error: "Invalid input: expected input.prompt to be a string"
+    };
   }
 
-  console.log('Iniciando generación simulada para:', input.prompt);
-  await new Promise(resolve => setTimeout(resolve, 5000));
-
   return {
-    output: {
-      videoUrl: `https://example.com/simulated-video-${Date.now()}.mp4`,
-      prompt: input.prompt,
-      duration: input.duration,
-      resolution: input.resolution,
-      status: 'completed',
-      message: 'Video generado (simulado)'
-    }
+    status: "ok",
+    echo: prompt
   };
-};
+}
 
-// OBLIGATORIO PARA RUNPOD SERVERLESS
+// Start the serverless worker loop
 runpod.serverless.start({ handler });
-
