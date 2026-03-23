@@ -1,7 +1,4 @@
-// handler.js - RunPod Serverless (Node.js)
-
-// Importa tu función real de generación de video (ajusta path)
-import { generateVideo } from './controllers/generateController.js'; // o './routes/generate.js' si exportas desde allí
+// handler.js - Versión debug para Render
 
 export const handler = async (job) => {
   console.log('Serverless job input:', job.input);
@@ -13,12 +10,24 @@ export const handler = async (job) => {
   }
 
   try {
-    // Ejecuta tu lógica (async, GPU si aplica, sin listen/port)
-    const result = await generateVideo(input); // { videoUrl, metadata, ... }
+    // Placeholder: simula tu lógica de video (reemplaza con la real cuando exportes correctamente)
+    console.log('Simulando generación de video...');
+    await new Promise(resolve => setTimeout(resolve, 3000)); // 3s delay fake
 
-    return result; // RunPod lo envía como output
+    return {
+      output: {
+        videoUrl: 'https://example.com/simulated-video.mp4',
+        duration: input.duration,
+        resolution: input.resolution,
+        status: 'completed'
+      }
+    };
   } catch (err) {
-    console.error('Job error:', err);
+    console.error('Job error:', err.message);
     throw err;
   }
 };
+
+// Si usas runpod-sdk (opcional en Render, pero para compat RunPod)
+// import runpod from 'runpod-sdk';
+// runpod.serverless.start({ handler });
