@@ -13,5 +13,3 @@ export const handler = async (event) => {
 runpod.serverless.start({
   handler
 });
-
-
