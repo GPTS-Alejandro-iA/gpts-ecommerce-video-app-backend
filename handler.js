@@ -1,30 +1,28 @@
-// handler.js - Para RunPod Serverless (compatible con tu backend)
+// handler.js - RunPod Serverless entrypoint
 
-import { generateVideo } from './controllers/generateController.js'; // ajusta según tu controller real
-// o importa lo que necesites para /api/generate
+// Importa tu lógica de generación (ajusta path/nombre exacto)
+import { generateVideo } from './controllers/generateController.js'; // o './controllers/runpodController.js' si ahí está
 
-export const handler = async (event) => {
-  console.log('Job recibido:', event.input);
+export const handler = async (job) => {
+  console.log('Serverless job input:', job.input);
+
+  const input = job.input || {};
+
+  // Validación (ajusta a tus params requeridos)
+  if (!input.prompt || !input.duration || !input.resolution) {
+    throw new Error('Missing required params: prompt, duration, resolution');
+  }
 
   try {
-    const input = event.input; // { prompt, duration, resolution, ... }
-
-    if (!input.prompt || !input.duration) {
-      throw new Error('Faltan parámetros requeridos');
-    }
-
-    // Llama a tu lógica real de generación de video
-    const result = await generateVideo(input); // adapta al nombre de tu función
+    // Ejecuta tu función principal de video (debe ser async)
+    const result = await generateVideo(input); // devuelve { videoUrl, metadata, ... }
 
     return {
-      output: result, // { videoUrl, jobId, status, ... }
+      output: result,
       status: 'COMPLETED'
     };
-  } catch (error) {
-    console.error('Error en handler:', error);
-    return {
-      error: error.message,
-      status: 'FAILED'
-    };
+  } catch (err) {
+    console.error('Job error:', err.message);
+    throw err; // RunPod marca job como FAILED
   }
 };
