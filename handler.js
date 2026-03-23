@@ -1,5 +1,7 @@
-const handler = async (job) => {
-  console.log('Job recibido en Render/RunPod Serverless:', job.input);
+import runpod from 'runpod-sdk';
+
+export const handler = async (job) => {
+  console.log('Job recibido en RunPod Serverless:', job.input);
 
   const input = job.input || {};
 
@@ -7,25 +9,20 @@ const handler = async (job) => {
     throw new Error('Faltan prompt, duration o resolution');
   }
 
-  try {
-    console.log('Iniciando generación simulada para:', input.prompt);
-    await new Promise(resolve => setTimeout(resolve, 5000));
+  console.log('Iniciando generación simulada para:', input.prompt);
+  await new Promise(resolve => setTimeout(resolve, 5000));
 
-    return {
-      output: {
-        videoUrl: `https://example.com/simulated-video-${Date.now()}.mp4`,
-        prompt: input.prompt,
-        duration: input.duration,
-        resolution: input.resolution,
-        status: 'completed',
-        message: 'Video generado (simulado)'
-      }
-    };
-  } catch (error) {
-    console.error('Error en handler:', error.message);
-    throw error;
-  }
+  return {
+    output: {
+      videoUrl: `https://example.com/simulated-video-${Date.now()}.mp4`,
+      prompt: input.prompt,
+      duration: input.duration,
+      resolution: input.resolution,
+      status: 'completed',
+      message: 'Video generado (simulado)'
+    }
+  };
 };
 
-module.exports = { handler };
-
+// ESTA LÍNEA ES OBLIGATORIA EN RUNPOD SERVERLESS
+runpod.serverless.start({ handler });
