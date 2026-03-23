@@ -1,24 +1,19 @@
 {
   "name": "gpts-ecommerce-video-app-backend",
   "version": "1.0.0",
-  "description": "Backend Express para Render",
-  "main": "server.js",
+  "description": "Backend para RunPod Serverless",
+  "main": "handler.js",
   "type": "module",
   "engines": {
     "node": "18.x"
   },
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node handler.js"
   },
   "dependencies": {
-    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "multer": "1.4.5-lts.1",
-    "node-fetch": "^3.3.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.0"
+    "node-fetch": "^3.3.2",
+    "runpod-sdk": "^1.1.2"
   }
 }
+
