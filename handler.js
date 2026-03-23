@@ -24,5 +24,6 @@ export const handler = async (job) => {
   };
 };
 
-// ESTA LÍNEA ES OBLIGATORIA EN RUNPOD SERVERLESS
+// OBLIGATORIO PARA RUNPOD SERVERLESS
 runpod.serverless.start({ handler });
+
