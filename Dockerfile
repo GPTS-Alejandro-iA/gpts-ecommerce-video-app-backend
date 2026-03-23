@@ -1,4 +1,4 @@
-FROM node:18
+FROM runpod/pytorch:2.4.0-py3.11-cuda12.1-ubuntu22.04  # Usa esta si necesitas GPU/CUDA; si no, cambia a node:20
 
 WORKDIR /app
 
@@ -8,5 +8,5 @@ RUN npm install --production
 
 COPY . .
 
-# Ejecuta el handler (RunPod Serverless lo llama automáticamente)
+# RunPod llama automáticamente a handler.handler
 CMD ["node", "handler.js"]
