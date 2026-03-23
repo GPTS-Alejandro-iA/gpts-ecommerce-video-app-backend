@@ -1,33 +1,31 @@
-// handler.js - Versión debug para Render
-
-export const handler = async (job) => {
-  console.log('Serverless job input:', job.input);
+const handler = async (job) => {
+  console.log('Job recibido en Render/RunPod Serverless:', job.input);
 
   const input = job.input || {};
 
   if (!input.prompt || !input.duration || !input.resolution) {
-    throw new Error('Missing prompt, duration or resolution');
+    throw new Error('Faltan prompt, duration o resolution');
   }
 
   try {
-    // Placeholder: simula tu lógica de video (reemplaza con la real cuando exportes correctamente)
-    console.log('Simulando generación de video...');
-    await new Promise(resolve => setTimeout(resolve, 3000)); // 3s delay fake
+    console.log('Iniciando generación simulada para:', input.prompt);
+    await new Promise(resolve => setTimeout(resolve, 5000));
 
     return {
       output: {
-        videoUrl: 'https://example.com/simulated-video.mp4',
+        videoUrl: `https://example.com/simulated-video-${Date.now()}.mp4`,
+        prompt: input.prompt,
         duration: input.duration,
         resolution: input.resolution,
-        status: 'completed'
+        status: 'completed',
+        message: 'Video generado (simulado)'
       }
     };
-  } catch (err) {
-    console.error('Job error:', err.message);
-    throw err;
+  } catch (error) {
+    console.error('Error en handler:', error.message);
+    throw error;
   }
 };
 
-// Si usas runpod-sdk (opcional en Render, pero para compat RunPod)
-// import runpod from 'runpod-sdk';
-// runpod.serverless.start({ handler });
+module.exports = { handler };
+
