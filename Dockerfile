@@ -6,8 +6,7 @@ COPY package*.json ./
 
 RUN npm install --production
 
-COPY handler.js .
+COPY . .
 
+# Ejecuta el handler (RunPod Serverless lo llama automáticamente)
 CMD ["node", "handler.js"]
-
-
