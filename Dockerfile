@@ -1,11 +1,11 @@
-FROM node:18  # o runpod/pytorch:... si necesitas CUDA/GPU para video gen
+FROM node:18
 
 WORKDIR /app
 
 COPY package*.json ./
 RUN npm install --production
 
-COPY . .
+COPY handler.js .
 
-# RunPod Serverless ejecuta este CMD automáticamente
 CMD ["node", "handler.js"]
+
