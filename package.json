@@ -1,7 +1,7 @@
 {
-  "name": "gpts-ecommerce-video-app-backend",
+  "name": "gpts-ecommerce-video-app-backend-serverless",
   "version": "1.0.0",
-  "description": "Backend para generación de videos ecommerce en RunPod Serverless",
+  "description": "Handler para RunPod Serverless",
   "main": "handler.js",
   "type": "module",
   "engines": {
@@ -16,5 +16,6 @@
     "runpod-sdk": "^1.1.2"
   }
 }
+
 
 
