@@ -1,36 +1,29 @@
-{
-  "name": "gpts-ecommerce-video-app-backend",
-  "version": "1.0.0",
-  "description": "Backend para generación de videos ecommerce en RunPod Serverless",
-  "main": "handler.js",
-  "type": "module",
-  "engines": {
-    "node": "18.x"
-  },
-  "scripts": {
-    "start": "node handler.js",
-    "dev": "nodemon handler.js",
-    "start:legacy": "node server.js"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "multer": "1.4.5-lts.1",
-    "node-fetch": "^3.3.2",
-    "runpod-sdk": "^1.1.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.0"
-  },
-  "keywords": [
-    "runpod",
-    "serverless",
-    "video-generation",
-    "ecommerce",
-    "node",
-    "express"
-  ],
-  "author": "Green Power Tech",
-  "license": "ISC"
-}
+import runpod from 'runpod-sdk';
+
+export const handler = async (job) => {
+  console.log('Job recibido en RunPod Serverless:', job.input);
+
+  const input = job.input || {};
+
+  if (!input.prompt || !input.duration || !input.resolution) {
+    throw new Error('Faltan prompt, duration o resolution');
+  }
+
+  console.log('Iniciando generación simulada para:', input.prompt);
+  await new Promise(resolve => setTimeout(resolve, 5000));
+
+  return {
+    output: {
+      videoUrl: `https://example.com/simulated-video-${Date.now()}.mp4`,
+      prompt: input.prompt,
+      duration: input.duration,
+      resolution: input.resolution,
+      status: 'completed',
+      message: 'Video generado (simulado)'
+    }
+  };
+};
+
+// ESTA LÍNEA ES OBLIGATORIA EN RUNPOD SERVERLESS
+runpod.serverless.start({ handler });
+
