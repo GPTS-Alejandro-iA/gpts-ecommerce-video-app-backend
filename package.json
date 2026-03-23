@@ -1,19 +1,16 @@
 {
-  "name": "gpts-ecommerce-video-app-backend",
+  "name": "gpts-ecommerce-video-app-backend-runpod-worker",
   "version": "1.0.0",
-  "description": "Backend para RunPod Serverless",
+  "private": true,
+  "description": "Runpod Serverless CPU worker (echo prompt).",
+  "type": "commonjs",
   "main": "handler.js",
-  "type": "module",
-  "engines": {
-    "node": "18.x"
-  },
   "scripts": {
     "start": "node handler.js"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "node-fetch": "^3.3.2",
-    "runpod-sdk": "^1.1.2"
+    "runpod-sdk": "^1.0.0"
   }
 }
+
 
