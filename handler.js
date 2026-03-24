@@ -1,6 +1,6 @@
 "use strict";
 
-const runpod = require("runpod-sdk");
+const runpod = require("runpod");
 
 /**
  * Runpod Serverless handler.
