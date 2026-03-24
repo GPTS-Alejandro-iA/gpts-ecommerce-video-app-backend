@@ -9,8 +9,9 @@
     "start": "node handler.js"
   },
   "dependencies": {
-    "runpod-sdk": "^1.0.0"
+    "runpod": "^1.0.0"
   }
 }
+
 
 
