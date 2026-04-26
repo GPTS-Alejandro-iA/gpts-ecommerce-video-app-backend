@@ -1,6 +1,6 @@
 {
   "name": "gpts-ecommerce-video-app-backend-runpod-worker",
-  "version": "1.0.0",
+  "version": "1.10.0",
   "private": true,
   "description": "Runpod Serverless CPU worker (echo prompt).",
   "type": "commonjs",
@@ -9,9 +9,10 @@
     "start": "node handler.js"
   },
   "dependencies": {
-    "runpod": "^1.0.0"
+    "runpod": "0.10.0"
   }
 }
+
 
 
 
