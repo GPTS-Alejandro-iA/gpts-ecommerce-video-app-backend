@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from workers.svd_xt import generate_svd_xt
+from workers.llm_brain import generate_campaign_brain
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -23,4 +24,7 @@ def generate_video(request: VideoRequest):
 async def generate_svd_xt_route(request: VideoRequest):
     return await generate_svd_xt(request)
 
+@app.post("/generate/brain")
+async def generate_brain_route(payload: dict):
+    return await generate_campaign_brain(payload)
 
