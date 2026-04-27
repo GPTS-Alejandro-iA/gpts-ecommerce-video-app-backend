@@ -1,45 +1,35 @@
 import os
-import requests
+from huggingface_hub import InferenceClient
 
 HF_API_KEY = os.getenv("HF_API_KEY")
 
-LLAMA_MODEL = "meta-llama/Llama-3.1-8B-Instruct"
+# Cliente oficial de HuggingFace
+client = InferenceClient(
+    model="meta-llama/Llama-3.1-8B-Instruct",
+    token=HF_API_KEY
+)
 
 async def generate_campaign_brain(payload: dict):
     prompt = payload.get("prompt", "Escribe una respuesta creativa.")
 
-    headers = {
-        "Authorization": f"Bearer {HF_API_KEY}",
-        "Content-Type": "application/json"
-    }
+    try:
+        response = client.text_generation(
+            prompt,
+            max_new_tokens=300,
+            temperature=0.7
+        )
 
-    data = {
-        "inputs": prompt,
-        "parameters": {
-            "max_new_tokens": 300,
-            "temperature": 0.7
+        return {
+            "status": "ok",
+            "prompt_enviado": prompt,
+            "respuesta": response
         }
-    }
 
-    response = requests.post(
-        f"https://api-inference.huggingface.co/models/{LLAMA_MODEL}",
-        headers=headers,
-        json=data
-    )
-
-    if response.status_code != 200:
+    except Exception as e:
         return {
             "status": "error",
-            "details": response.text
+            "details": str(e)
         }
 
-    result = response.json()
-
-    return {
-        "status": "ok",
-        "model": LLAMA_MODEL,
-        "prompt_enviado": prompt,
-        "respuesta": result[0]["generated_text"]
-    }
 
 
