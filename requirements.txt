@@ -1,6 +1,7 @@
 fastapi
 uvicorn
 requests
-huggingface_hub==0.24.6
+groq
+
 
 
