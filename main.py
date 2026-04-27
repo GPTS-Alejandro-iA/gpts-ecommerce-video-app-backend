@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from workers.svd_xt import generate_svd_xt
 from pydantic import BaseModel
 
 app = FastAPI()
