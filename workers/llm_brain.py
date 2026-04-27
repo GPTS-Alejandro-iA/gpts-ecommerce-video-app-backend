@@ -5,9 +5,10 @@ HF_API_KEY = os.getenv("HF_API_KEY")
 
 # Cliente oficial de HuggingFace
 client = InferenceClient(
-    model="meta-llama/Llama-3.1-8B-Instruct",
+    model="meta-llama/Meta-Llama-3.1-8B-Instruct",
     token=HF_API_KEY
 )
+
 
 async def generate_campaign_brain(payload: dict):
     prompt = payload.get("prompt", "Escribe una respuesta creativa.")
