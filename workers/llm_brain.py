@@ -3,12 +3,10 @@ from huggingface_hub import InferenceClient
 
 HF_API_KEY = os.getenv("HF_API_KEY")
 
-# Cliente oficial de HuggingFace
 client = InferenceClient(
-    model="meta-llama/Meta-Llama-3.1-8B-Instruct",
+    model="Qwen/Qwen2.5-7B-Instruct",
     token=HF_API_KEY
 )
-
 
 async def generate_campaign_brain(payload: dict):
     prompt = payload.get("prompt", "Escribe una respuesta creativa.")
@@ -31,6 +29,7 @@ async def generate_campaign_brain(payload: dict):
             "status": "error",
             "details": str(e)
         }
+
 
 
 
