@@ -19,5 +19,8 @@ def generate_video(request: VideoRequest):
         "message": "Video generado correctamente",
         "prompt_recibido": request.prompt
     }
+@app.post("/generate/svd_xt")
+async def generate_svd_xt_route(request: VideoRequest):
+    return await generate_svd_xt(request)
 
 
