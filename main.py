@@ -2,6 +2,20 @@ from fastapi import FastAPI
 from workers.svd_xt import generate_svd_xt
 from workers.llm_brain import generate_campaign_brain
 from pydantic import BaseModel
+from groq import Groq
+import os
+
+# TEMPORAL: imprimir modelos disponibles
+try:
+    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+    models = client.models.list()
+    print(">>> MODELOS DISPONIBLES EN GROQ <<<")
+    for m in models.data:
+        print(" -", m.id)
+    print(">>> FIN DE LISTA <<<")
+except Exception as e:
+    print(">>> ERROR LISTANDO MODELOS:", e)
+
 
 app = FastAPI()
 
