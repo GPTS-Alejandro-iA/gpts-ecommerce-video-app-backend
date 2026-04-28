@@ -10,7 +10,7 @@ async def generate_campaign_brain(payload: dict):
 
     try:
         response = client.chat.completions.create(
-          model="llama3-70b-versatile",
+          model="llama3-groq-70b-tool-use-preview",
             messages=[
                 {"role": "system", "content": "Eres un experto en marketing, ventas y energía solar."},
                 {"role": "user", "content": prompt}
