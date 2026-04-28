@@ -22,7 +22,7 @@ async def generate_campaign_brain(payload: dict):
         return {
             "status": "ok",
             "prompt_enviado": prompt,
-            "respuesta": response.choices[0].message["content"]
+            "respuesta": response.choices[0].message.content
         }
 
     except Exception as e:
@@ -30,6 +30,7 @@ async def generate_campaign_brain(payload: dict):
             "status": "error",
             "details": str(e)
         }
+
 
 
 
