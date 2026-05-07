@@ -53,6 +53,66 @@ s3_client = boto3.client(
 # ---------------------------------------------------------
 @app.get("/")
 def root():
+    return {"status": "Backend running"}
+
+# ---------------------------------------------------------
+# ENDPOINT DE PRUEBA DE VIDEO
+# ---------------------------------------------------------
+@app.post("/generate-video")
+def generate_video(request: VideoRequest):
+    return {
+        "message": "Video generado correctamente",
+        "prompt_recibido": request.prompt
+    }
+
+# ---------------------------------------------------------
+# ENDPOINT REAL PARA SVD-XT
+# ---------------------------------------------------------
+@app.post("/generate/svd_xt")
+async def generate_svd_xt_route(request: VideoRequest):
+    return await generate_svd_xt(request)
+
+# ---------------------------------------------------------
+# ENDPOINT PARA GENERAR CAMPAÑA (LLM BRAIN)
+# ---------------------------------------------------------
+@app.post("/generate/brain")
+async def generate_brain_route(payload: dict):
+    return await generate_campaign_brain(payload)
+
+# ---------------------------------------------------------
+# ENDPOINT NUEVO: RECIBIR VIDEO DESDE KAGGLE Y SUBIRLO A R2
+# ---------------------------------------------------------
+@app.post("/kaggle-engine")
+async def receive_kaggle_video(file: UploadFile = File(...)):
+    # Guardar temporalmente
+    temp_path = f"/tmp/{file.filename}"
+    with open(temp_path, "wb") as f:
+        f.write(await file.read())
+
+    # Subir a Cloudflare R2
+    try:
+        s3_client.upload_file(
+            temp_path,
+            R2_BUCKET,
+            file.filename,
+            ExtraArgs={"ContentType": "video/mp4"}
+        )
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": f"Error subiendo a R2: {str(e)}"
+        }
+
+    # URL público del video
+    public_url = f"{R2_ENDPOINT}/{R2_BUCKET}/{file.filename}"
+
+    return {
+        "status": "ok",
+        "filename": file.filename,
+        "r2_url": public_url,
+        "message": "Video recibido y subido correctamente a Cloudflare R2"
+    }
+
 
 
 
