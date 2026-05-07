@@ -112,9 +112,3 @@ async def receive_kaggle_video(file: UploadFile = File(...)):
         "r2_url": public_url,
         "message": "Video recibido y subido correctamente a Cloudflare R2"
     }
-
-
-
-
-
-
