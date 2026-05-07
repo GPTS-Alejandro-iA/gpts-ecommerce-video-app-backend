@@ -4,6 +4,22 @@ from workers.llm_brain import generate_campaign_brain
 from pydantic import BaseModel
 from groq import Groq
 import os
+from fastapi import UploadFile, File
+
+@app.post("/kaggle-engine")
+async def receive_kaggle_video(file: UploadFile = File(...)):
+    # Guardar el archivo temporalmente
+    file_location = f"/tmp/{file.filename}"
+    with open(file_location, "wb") as f:
+        f.write(await file.read())
+
+    # Aquí luego puedes subirlo a Cloudflare R2 o S3
+    # Por ahora devolvemos confirmación
+    return {
+        "status": "ok",
+        "filename": file.filename,
+        "message": "Video recibido correctamente"
+    }
 
 # TEMPORAL: imprimir modelos disponibles
 try:
