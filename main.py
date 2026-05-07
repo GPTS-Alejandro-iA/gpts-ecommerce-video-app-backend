@@ -112,3 +112,11 @@ async def receive_kaggle_video(file: UploadFile = File(...)):
         "r2_url": public_url,
         "message": "Video recibido y subido correctamente a Cloudflare R2"
     }
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", 10000)),
+        reload=False
+    )
