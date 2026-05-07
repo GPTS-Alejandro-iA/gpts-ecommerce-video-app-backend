@@ -70,11 +70,11 @@ async def receive_kaggle_video(file: UploadFile = File(...)):
     with open(file_location, "wb") as f:
         f.write(await file.read())
 
-    # Aquí luego puedes subirlo a Cloudflare R2 o S3
     return {
         "status": "ok",
         "filename": file.filename,
         "message": "Video recibido correctamente"
     }
+
 
 
